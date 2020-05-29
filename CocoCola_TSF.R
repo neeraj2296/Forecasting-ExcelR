@@ -1,13 +1,16 @@
+#Including the necassary libraries
 library(forecast)
 library(fpp)
 library(smooth)
 library(readxl)
 
+#Loading the dataset to which forecasting is to be done
 Cocacola <- read_excel(file.choose()) # read the Airlines data
 View(Cocacola) # Quarterly 4 months 
 windows()
 plot(Cocacola$Sales,type="o")
 
+#Converting the quarter labels into boolean data
 Q1 <-  ifelse(grepl("Q1",Cocacola$Quarter),'1','0')
 Q2 <-  ifelse(grepl("Q2",Cocacola$Quarter),'1','0')
 Q3 <-  ifelse(grepl("Q3",Cocacola$Quarter),'1','0')
