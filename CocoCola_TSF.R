@@ -27,6 +27,7 @@ CocacolaData["log_Sales"]<-log(CocacolaData["Sales"])
 CocacolaData["t_square"]<-CocacolaData["t"]*CocacolaData["t"]
 attach(CocacolaData)
 
+#Creating the necassary train and test data sets.
 train<-CocacolaData[1:36,]
 test<-CocacolaData[37:40,]
 
