@@ -1,9 +1,11 @@
+#Including the Libraries
 library(forecast)
 library(fpp)
 library(smooth)
 library(readxl)
 library(rmarkdown)
 
+#Loading the dataset to which forecasting is to be done
 plastics <- read.csv(file.choose())
 View(plastics)
 windows()
@@ -24,10 +26,11 @@ pl_data["log_Sales"]<-log(pl_data["Sales"])
 pl_data["t_sq"]<-pl_data["t"]*pl_data["t"]
 attach(pl_data)
 
+#Creating the necassary train and test data sets.
 train<-pl_data[1:48,]
 test<-pl_data[49:60,]
-########################### LINEAR MODEL #############################
 
+########################### LINEAR MODEL #############################
 linear_mod <- lm(Sales~t,data=train)
 summary(linear_mod)
 
@@ -102,11 +105,8 @@ new_model<-lm(log_Sales~t+Jan+Feb+Mar+Apr+May+Jun+Jul+Aug+Sep+Oct+Nov+Dec,data =
 new_model_pred<-data.frame(predict(new_model,newdata=pl_data,interval='predict'))
 
 new_model_fin <- exp(new_model$fitted.values)
-
 View(new_model_fin)
-
 Month <- as.data.frame(pl_data$Month)
-
 Final <- as.data.frame(cbind(Month,pl_data$Sales, new_model_fin))
 colnames(Final) <-c("Month","Sales","New_Pred_Value")
 plot(Final$Sales,main = "ActualGraph", xlab="Sales(Actual)", ylab="Months",
